@@ -29,7 +29,7 @@ def my_endpoint():
     if current_utc_time:
         result = {
             "slack_name": slack_name,
-            "current_day_of_the_week": current_day,
+            "day_of_the_week": current_day,
             "current_utc_time": utc_time,
             "track": track,
             "file_url": file_url,
