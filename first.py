@@ -3,7 +3,7 @@ from datetime import datetime
 import pytz #For working with time zones
 
 app = Flask(__name__)
-def get_current_time():
+def get_current_utc_time():
     utc_time = datetime.now(pytz.UTC)
     current_time = datetime.now()
     #calculating the time diffrence in hours
@@ -13,7 +13,7 @@ def get_current_time():
     else:
         return None
     
-@app.route("/my_endpoint", methods=["GET"])
+@app.route("/api", methods=["GET"])
 def my_endpoint():
     #Getting parameters
     slack_name = request.args.get("slack_name")
@@ -22,15 +22,15 @@ def my_endpoint():
     source_code_url = request.args.get("source_code_url")
 
     #Get current day of the week
-    current_day_of_week = datetime.now().strftime("%A")
+    current_day = datetime.now().strftime("%A")
     #Get current UTC time with validation 
-    current_utc_time = get_current_utc_time()
+    utc_time = get_current_utc_time()
 
     if current_utc_time:
         result = {
             "slack_name": slack_name,
-            "day_of_the_week": current_day_of_week,
-            "current_utc_time": current_utc_time,
+            "current_day_of_the_week": current_day,
+            "current_utc_time": utc_time,
             "track": track,
             "file_url": file_url,
             "source_code_url": source_code_url
